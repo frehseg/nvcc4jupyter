@@ -7,7 +7,6 @@ import subprocess
 import IPython.core.magic as ipym
 
 compiler = '/usr/local/cuda/bin/nvcc'
-compiler_options = '-I /usr/local/cuda/samples/common/inc/ -L/usr/local/cuda/include -lcublas -lcusolver -arch=sm_35 -Wno-deprecated-gpu-targets'
 ext = '.cu'
 
 
@@ -44,7 +43,7 @@ class NVCCPlugin(ipym.Magics):
             with open(file_path + ext, "w") as f:
                 f.write(cell)
             try:
-                subprocess.check_output([compiler, '-I/usr/local/cuda/samples/common/inc/', '-L/usr/local/cuda/include', '-lcublas', '-lcusolver', file_path + ext, "-o", file_path + ".out"], stderr=subprocess.STDOUT)
+                subprocess.check_output([compiler, '-I/usr/local/cuda/samples/common/inc/', '-L/usr/local/cuda/include', '-lcublas', '-lcusolver', '-arch=sm_35', '-Wno-deprecated-gpu-targets', file_path + ext, "-o", file_path + ".out"], stderr=subprocess.STDOUT)
                 print(self.run(file_path, timeit=args.timeit))
             except subprocess.CalledProcessError as e:
                 print(e.output.decode("utf8"))
