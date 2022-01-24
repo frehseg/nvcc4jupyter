@@ -7,7 +7,7 @@ import subprocess
 import IPython.core.magic as ipym
 
 compiler = '/usr/local/cuda/bin/nvcc'
-compiler_options = '-I /usr/local/cuda/samples/common/inc/ -L/usr/local/cuda/include -lcublas -lcusolver'
+compiler_options = '-I /usr/local/cuda/samples/common/inc/ -L/usr/local/cuda/include -lcublas -lcusolver -arch=sm_35 -Wno-deprecated-gpu-targets'
 ext = '.cu'
 
 
